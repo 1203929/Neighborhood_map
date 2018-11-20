@@ -1,3 +1,17 @@
+This is a single page application featuring a map of neighborhood,I will add functionality including highlighted locations .third party data about those locations and various ways to browse the content.There are number of instructions which I have to follow I am listing below,.
+1.Obtain a Google Maps API key,
+2.Add a full-screen map to your page using the Google Map API.
+3. Write code required to display map markers identifying at least 5 locations that you are interested in whithin this neighborhood.
+4.Implement a list view of set of locations you have defined.
+5.Provide a filter option that uses an input field to filter both-the list view and the map markers displyed by default on load.
+6.Add functionality using third-party APIs to provide information when a map marker or list view entry is clicked.
+7. Be sure that all application components(i.e a search box, a list view, and the map) render on screen in a responsive manner.
+
+ I hope these instructions will give you understanding of what is this project all about.
+
+and again a brief overview
+1.It is a single-page application using React featuring a map of your neighborhood or a neighborhood I would like to visit.I will add additional functionality to this application including map markers to identify popular locations or places you'd  like to visit. a search function to easily discover these locations, and a list view to support simple browsing of all locations.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
