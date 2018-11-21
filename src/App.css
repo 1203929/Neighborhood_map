@@ -2,10 +2,7 @@
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-}
+
 
 .App-header {
   background-color: #282c34;
@@ -24,9 +21,80 @@
 
 @keyframes App-logo-spin {
   from {
-    transform: rotate(0deg);
-  }
+    transform: rotate(0deg);  }
   to {
-    transform: rotate(360deg);
-  }
+    transform: rotate(360deg);  }
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+.App-intro {
+  font-size: large;
+}
+
+#map {
+  bottom: 0px;
+  height: 100%;
+  left: 362px;
+  position: absolute;
+  right: 0px;
+}
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: Arial, sans-serif;
+  margin:100%;
+  padding: 0;
+  height: 100%;
+}
+
+input{
+  font-size: 13px;
+}
+.container{
+  position: relative;
+  height: relative;
+}
+h1{
+  color:#525454;
+  font-size: 22px;
+  margin:0 0 10px 0;
+  text-align : center;
+}
+
+#hide-listing,
+#show-listing {
+  width: 48%;
+}
+hr{
+  background: #D0D7D9;
+  height: 1px;
+  margin: 20px 0 20px 0;
+  border: none;
+}
+
+#options-box {
+  background: #fff;
+  border: 1px solid #999;
+  border-radius: 3px;
+  height: 100%;
+  line-height: 35px;
+  padding: 10px 10px 30px 10px;
+  text-align: left;
+  width: 340px;
+}
+
+#search-within {
+  width: 84%;
+}
+
+#zoom-to-area-text {
+  width: 70%;
+}
+#zoom-to-area {
+  width: 24%;
 }
