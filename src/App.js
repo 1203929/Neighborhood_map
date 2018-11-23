@@ -5,7 +5,7 @@ import axios from 'axios'
 class App extends Component {
 
   state = {
-    venues:[]
+    destiny:[]
   }
 
   componentDidMount(){
@@ -23,26 +23,44 @@ class App extends Component {
     const parameters = {
       client_id: "F0XRUQHKU4MAN5HY3JZ0JTQCINFUFAU3HZ1ABOQJCMEJTZZG",
       client_secret:"FZGSXY3EP4PC2IZV1ER23ZST4CTFMNPEH5ECHPHW53CXWEIQ",
-      query:"Park",
-      near:"Kolkata"
-      v:"20182507"
+  
     }
+
+
+    //to fetch FourSquare API request
     axios.get(endPoint + new URLSearchParams(parameters))
     .then(response=> {
       this.setState({
-        venues: response.data.response.groups[0].items
+        destiny: response.data.response.groups[0].items
       })
     })
     .catch(error =>{
-      console.log("ERROR!" + error)
+      console.log("ERROR! " + error)
     })
+  }
 
   initMap = () => {
     var map = new window.google.maps.Map(document.getElementById('map'),{
       center: {lat: 22.572645, lng: 88.363892},
       zoom : 8
     })
-  }
+
+      this.state.venues.destiny.map(myVenue => {
+        var contentString = `${myVenue.destiny.name}`
+        //info window
+        var infoWindow = new window.google.maps.InfoWindow({
+          content:contentString
+        })
+    var marker = new window.google.maps.Marker({
+      position:{lat:myVenue.destiny.location.lat , lng:  myVenue.destiny.location.lng},
+      map : map
+      title:myVenue.destiny.name
+    })
+    marker.addListener('click',function(){
+      infoWindow.setContent(contentString)
+      infoWindow.open(map, marker)
+    })
+  })
   render() {
     return (
     <main>

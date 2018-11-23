@@ -12,3 +12,36 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+hr{
+  background: #D0D7D9;
+  height: 1px;
+  margin: 20px 0 20px 0;
+  border: none;
+}
+ #map{
+   bottom: 0px;
+   height: 100%;
+   left: 362px;
+   position: absolute;
+   right: 0px;
+ }
+ .container{
+   height: 100%;
+   position: relative;
+ }
+ html, body {
+   font-family: Arial, sans-serif;
+   height: 100%;
+   margin: 0;
+   padding: 0;
+ }
+
+ #hide-place,
+ #show-place{
+   width: 48%;
+ }
+
+ #search-place{
+   width: 70%; 
+ }
