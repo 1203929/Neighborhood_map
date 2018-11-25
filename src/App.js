@@ -78,18 +78,69 @@ class App extends Component {
       }
 
     ],
-    }
+    'map': '',
+    'infoWindow':'',
+    'prevmarker': ''
+  };
+  this.initMap = this.initMap.bind(this);
+  this.openInfoWindow = this.openInfoWindow.bind(this);
+  this.closeInfoWindow = this.closeInfoWindow.bind(this);
   }
 
   componentDidMount(){
-    this.getVenues()
-    this.renderMap()
+        window.initMap = this.initMap;
+        loadScript("https://maps.googleapis.com/maps/api/js?libraries=geometry&key=AIzaSyAcyPTUUECGcXAoDgx5YSSbmkJF0UZBIpU&v=3&callback=initMap")
+
   }
 
-  renderMap = () => {
-    loadScript("https://maps.googleapis.com/maps/api/js?libraries=geometry&key=AIzaSyAcyPTUUECGcXAoDgx5YSSbmkJF0UZBIpU&v=3&callback=initMap")
-    window.initMap = this.initMap
-  }
+initMap() {
+  var self = this;
+  var mapview = document.getElementById('map');
+  mapview.style.height = window.innerHeight + "px";
+  var map = new window.google.maps.Map(mapview,{
+    center:{lat:22.5726,lng:88.3639},
+    zoom : 15,
+    mapTypeControl: false
+  });
+  var InfoWindow = new window.google.maps.InfoWindow({});
+  window.google.maps.event.addListener(InfoWindow, 'closeclick',function(){
+    self.closeInfoWindow();
+  });
+  this.setState({
+    'map':map,
+    'infoWindow':InfoWindow
+  });
+
+  window.google.maps.event.addDomListenere(window, "resize",function(){
+    var center = map.getCenter();
+    window.google.maps.event.trigger(map,"resize");
+    self.state.map.setCenter(center);
+  });
+  window.google.maps.event.addListener(map,'click', function(){
+    self.closeInfoWindow();
+  });
+
+  var allocations = [];
+  this.state.allocations.forEach(function(place){
+    var longname = place.name + ' - ' + location.type;
+    var marker = new window.google.maps.Marker({
+      position: new window.google.maps.LatLng(location.latitude, location.longitude),
+       animation: window.google.maps.Animation.DROP,
+       map:map
+    });
+    marker.addListener('click', function(){
+      self.openInfoWindow(marker);
+    });
+    place.longname = longname;
+    place.marker = marker;
+    place.display = true;
+    allplaces.push(location);
+
+  });
+  this.setState({
+    'allplaces': allplaces
+  });
+  
 
   getVenues = () => {
     const endPoint = "https://api.foursquare.com/v2/venues/explore"
@@ -134,19 +185,19 @@ class App extends Component {
       infoWindow.open(map, marker)
     })
   })
-  render() {
+
     return (
     <main>
       <div id="map"></div>
     </main>
 
-    )
-  }
+  )
+
 }
 
 function loadScript(url) {
   var index = window.document.getElementByTagName("script")[0]
-  var script = window.document.createElement("script")
+  var script = window.document.createElement("script"),
   script.src = url
   script.async = true
   script.defer = true
