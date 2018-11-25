@@ -31,7 +31,35 @@ class placeList extends Component {
 
     });
   }
-  
+  componentWillMount(){
+    this.setState({
+      'places': this.props.allplaces
+    });
+  }
+ toggleSuggestions(){
+   this.setState({
+     'suggestions':!this.state.suggestions
+   });
+ }
+//render function of placeList
+render(){
+  var placeList = this.state.places.map(function(listItem,index){
+    return (
+      <placeItem key={index} openInfoWindow={this.props.openInfoWindow.bind(this)} data={listItem}
+    );
+  },this);
+  return (
+    <div className="search">
+      <input role="search" aria-labelledby="filter" id="search-field" className="search-field" type="text" placeholder="Filter Places"
+      value={this.state.query} onChange={this.filterPlaces}/>
+      <ul>
+      {this.state.suggestions && placeList}
+      </ul>
 
+      <button className="button" onClick={this.toggleSuggestions}>Show/Hide Suggestions</button>
+      </div>
+
+  )
+}
 
 }
