@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
-import axios from 'axios'
-
+import placeList from './placeList.js';
+import places from './places.json';
+import Modal from './Modal';
 class App extends Component {
 
   state = {
@@ -23,7 +24,7 @@ class App extends Component {
     const parameters = {
       client_id: "F0XRUQHKU4MAN5HY3JZ0JTQCINFUFAU3HZ1ABOQJCMEJTZZG",
       client_secret:"FZGSXY3EP4PC2IZV1ER23ZST4CTFMNPEH5ECHPHW53CXWEIQ",
-  
+
     }
 
 
@@ -54,7 +55,7 @@ class App extends Component {
     var marker = new window.google.maps.Marker({
       position:{lat:myVenue.destiny.location.lat , lng:  myVenue.destiny.location.lng},
       map : map
-      title:myVenue.destiny.name
+
     })
     marker.addListener('click',function(){
       infoWindow.setContent(contentString)
