@@ -140,27 +140,30 @@ initMap() {
   this.setState({
     'allplaces': allplaces
   });
-  
 
-  getVenues = () => {
+
+  /**getVenues = () => {
     const endPoint = "https://api.foursquare.com/v2/venues/explore"
     const parameters = {
       client_id: "F0XRUQHKU4MAN5HY3JZ0JTQCINFUFAU3HZ1ABOQJCMEJTZZG",
       client_secret:"FZGSXY3EP4PC2IZV1ER23ZST4CTFMNPEH5ECHPHW53CXWEIQ",
+      */
 
     }
 
 
-    //to fetch FourSquare API request
-    axios.get(endPoint + new URLSearchParams(parameters))
-    .then(response=> {
-      this.setState({
-        destiny: response.data.response.groups[0].items
-      })
-    })
-    .catch(error =>{
-      console.log("ERROR! " + error)
-    })
+  openInfoWindow(marker) {
+    this.closeInfoWindow();
+    this.state.infoWindow.open(this.state.map, marker);
+    marker.setAnimation(window.google.maps.Animation.BOUNCE);
+    this.setState({
+      'prevmarker': marker
+    });
+    this.state.infoWindow.setContent('Loading content...');
+    this.state.map.setCenter(marker.getPosition());
+    this.state.map.panBy(0, -200);
+    this.getMarkerInfo(marker);
+
   }
 
   initMap = () => {
