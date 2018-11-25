@@ -1,12 +1,84 @@
 import React, { Component } from 'react';
-import './App.css';
-import placeList from './placeList.js';
-import places from './places.json';
-import Modal from './Modal';
+import placeList from './placeList';
 class App extends Component {
 
-  state = {
-    destiny:[]
+  constructor(props)  {
+    super(props);
+    this.state = {
+      'allplaces' : [
+        {
+          'name' : "Aquatica",
+          'type' : "Water Park",
+          'latitude':22.562575,
+          'longitude':88.46522,
+          'streetAddress': "Rajarhat Township, Kolkata, West Bengal 700156"
+        },
+        {
+          'name':"Nicco Park",
+          'type':"Water Park",
+          'latitude':22.57126,
+          'longitude':88.420556,
+          'streetAddress':"Salt Lake City, Kolkata, West Bengal 700106"
+        },
+        {
+          'name': "Eco Park",
+          'type': "Urban Park",
+          'latitude': 22.603134,
+          'longitude':88.467143,
+          'streetAddress':"Action Area II, Newtown, Kolkata, West Bengal 700156"
+        },
+      {
+        'name':"Md Ali Park",
+        'type':"Public place",
+        'latitude':22.577189,
+        'longitude':88.360737,
+        'streetAddress':"College Square, Kolkata, West Bengal 700073"
+      },
+      {
+        'name':"Millenium Park",
+        'type':"Romantic Park",
+        'latitude':22.572821,
+        'longitude':88.344549,
+        'streetAddress':"BBD Bagh, Kolkata, West Bengal 700001"
+      },
+      {
+        'name': "Victoria Memorial",
+        'type': "Museum",
+        'latitude':22.544808,
+        'longitude':88.344549,
+        'streetAddress':"Queens Way, Kolkata, West Bengal 700071"
+      },
+      {
+        'name': "Science City",
+        'type':"Science Centre",
+        'latitude':22.539056,
+        'longitude':88.395825,
+        'streetAddress':"Topsia, Kolkata, West Bengal 700046"
+      },
+      {
+        'name':"Birla Planetarium",
+        'type':"Planetarium",
+        'latitude':22.545514,
+        'longitude':88.347316,
+        'streetAddress': " Adjacent To St, Kolkata, West Bengal 700071"
+      },
+      {
+        'name':"Alipore Zoo",
+        'type':"Zoo",
+        'latitude':88.33167,
+        'longitude':22.537011,
+        "streetAddress":"Alipore Road, Alipore, Kolkata"
+      },
+      {
+        'name':"Eden Garden",
+        'type':"Cricket Stadium",
+        'latitude':22.564608,
+        'longitude':88.343265,
+        'streetAddress':"BBD Bagh, Kolkata, West Bengal 700021"
+      }
+
+    ],
+    }
   }
 
   componentDidMount(){
