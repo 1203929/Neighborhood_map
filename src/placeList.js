@@ -45,8 +45,8 @@ class placeList extends Component {
 render(){
   var placeList = this.state.places.map(function(listItem,index){
     return (
-      <placeItem key={index} openInfoWindow={this.props.openInfoWindow.bind(this)} data={listItem}
-    );
+      <placeItem key={index} openInfoWindow={this.props.openInfoWindow.bind(this)} data={listItem}/>
+    )
   },this);
   return (
     <div className="search">

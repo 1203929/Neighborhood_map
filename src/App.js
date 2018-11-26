@@ -89,7 +89,7 @@ class App extends Component {
 
   componentDidMount(){
         window.initMap = this.initMap;
-        loadScript("https://maps.googleapis.com/maps/api/js?libraries=geometry&key=AIzaSyAcyPTUUECGcXAoDgx5YSSbmkJF0UZBIpU&v=3&callback=initMap")
+        loadMapScript("https://maps.googleapis.com/maps/api/js?libraries=geometry&key=AIzaSyAcyPTUUECGcXAoDgx5YSSbmkJF0UZBIpU&v=3&callback=initMap")
 
   }
 
@@ -120,11 +120,11 @@ initMap() {
     self.closeInfoWindow();
   });
 
-  var allocations = [];
+  var allplaces = [];
   this.state.allocations.forEach(function(place){
-    var longname = place.name + ' - ' + location.type;
+    var longname = place.name + ' - ' + place.type;
     var marker = new window.google.maps.Marker({
-      position: new window.google.maps.LatLng(location.latitude, location.longitude),
+      position: new window.google.maps.LatLng(place.latitude, place.longitude),
        animation: window.google.maps.Animation.DROP,
        map:map
     });
@@ -134,7 +134,7 @@ initMap() {
     place.longname = longname;
     place.marker = marker;
     place.display = true;
-    allplaces.push(location);
+    allplaces.push(place);
 
   });
   this.setState({
@@ -213,10 +213,24 @@ closeInfoWindow(){
 render() {
   return(
     <div>
-    <placeList key="100" allocations={this.state.allocations} openInfoWindow={this.openInfoWindow}
+    <placeList key="100" allplaces={this.state.allocations} openInfoWindow={this.openInfoWindow}
           closeInfoWindow={this.closeInfoWindow}/>
           <div id= "map"></div>
       </div>
   );
 }
+}
+
+export default App;
+///loading google maps asynchronously
+
+function loadMapScript(src){
+  var ref = window.document.getElementByTagName("script")[0];
+  var script = window.document.createElement("script");
+  script.src = src;
+  script.async = true;
+  script.onerror = function(){
+    document.write("Something  Went Wrong! Map can't be loaded");
+  };
+  ref.parentNode.insertBefore(script, ref);
 }
