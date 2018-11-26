@@ -166,49 +166,57 @@ initMap() {
 
   }
 
-  initMap = () => {
-    var map = new window.google.maps.Map(document.getElementById('map'),{
-      center: {lat: 22.572645, lng: 88.363892},
-      zoom : 8
-    })
 
-      this.state.venues.destiny.map(myVenue => {
-        var contentString = `${myVenue.destiny.name}`
-        //info window
-        var infoWindow = new window.google.maps.InfoWindow({
-          content:contentString
-        })
-    var marker = new window.google.maps.Marker({
-      position:{lat:myVenue.destiny.location.lat , lng:  myVenue.destiny.location.lng},
-      map : map
+getMarkerInfo(marker){
+  var self = this;
+  var clientId = "F0XRUQHKU4MAN5HY3JZ0JTQCINFUFAU3HZ1ABOQJCMEJTZZG";
+  var clientSecret = "FZGSXY3EP4PC2IZV1ER23ZST4CTFMNPEH5ECHPHW53CXWEIQ";
+  var url = "https://api.foursquare.com/v2/venues/search?client_id=" + clientId + "&client_secret=" + clientSecret + "&v=20130815&ll=" + marker.getPosition().lat() + "," + marker.getPosition().lng() + "&limit=1";
+  fetch(url)
+        .then(
+          function (response) {
+            if(response.status !== 200) {
+              self.state.infoWindow.setContent("Data Can't find");
+              return;
+            }
 
-    })
-    marker.addListener('click',function(){
-      infoWindow.setContent(contentString)
-      infoWindow.open(map, marker)
-    })
-  })
 
-    return (
-    <main>
-      <div id="map"></div>
-    </main>
+            response.json().then(function(data){
+              var location_data = data.response.venues[0];
+              var verified = '<b>verified Location::</b> +' + (location_data.verified ?'yes' : 'No') +'<br>';
+              var checkinsCount = '<b>Number of CheckIn:</b>' + location_data.status.checkinsCount + '<br>';
+              var usersCount = '<b>Number of Users: </b>' + location_data.stats.usersCount +'<br>';
+              var tipCount = '<b>Number of Tips: </b>' + location_data.stats.tipCount + '<br>';
+              var readMore ='<a href="https://foursquare.com/v/' + location_data.id +'" target="_blank">Read More on Foursquare Website</a>'
+              self.state.infoWindow.setContent(checkinsCount + usersCount + tipCount + verified + readMore);
 
-  )
+            });
+
+          }
+        )
+        .catch(function(err) {
+          self.state.infoWindow.setContent(" can't be loaded");
+        });
+}
+closeInfoWindow(){
+  if (this.state.prevmarker) {
+    this.state.prevmarker.setAnimation(null);
+  }
+  this.setState({
+    'prevmarker':''
+  });
+  this.state.infoWindow.close();
+
 
 }
 
-function loadScript(url) {
-  var index = window.document.getElementByTagName("script")[0]
-  var script = window.document.createElement("script"),
-  script.src = url
-  script.async = true
-  script.defer = true
-  index.parentNode.insertBefore(script, index)
-  /*
-  <script></script>
-  */
-
+render() {
+  return(
+    <div>
+    <placeList key="100" allocations={this.state.allocations} openInfoWindow={this.openInfoWindow}
+          closeInfoWindow={this.closeInfoWindow}/>
+          <div id= "map"></div>
+      </div>
+  );
 }
-
-export default App;
+}
