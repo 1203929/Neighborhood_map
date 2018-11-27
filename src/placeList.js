@@ -16,7 +16,7 @@ class placeList extends Component {
   filterPlaces(event) {
     this.props.closeInfoWindow();
     const {value} = event.target;
-    var Places = [];
+    var places = [];
     this.props.allplaces.forEach(function(place){
       if(place.longname.toLowerCase().indexof(value.toLowerCase())>=0){
         place.longname.setVisible(true);
@@ -63,3 +63,4 @@ render(){
 }
 
 }
+export default placeList;
