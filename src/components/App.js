@@ -89,7 +89,7 @@ class App extends Component {
 
   componentDidMount(){
         window.initMap = this.initMap;
-        loadMapScript("https://maps.googleapis.com/maps/api/js?libraries=geometry&key=AIzaSyAcyPTUUECGcXAoDgx5YSSbmkJF0UZBIpU&v=3&callback=initMap")
+        loadMapJS("https://maps.googleapis.com/maps/api/js?key=AIzaSyAcyPTUUECGcXAoDgx5YSSbmkJF0UZBIpU&callback=initMap")
 
   }
 
@@ -111,7 +111,7 @@ initMap() {
     'infoWindow':InfoWindow
   });
 
-  window.google.maps.event.addDomListenere(window, "resize",function(){
+  window.google.maps.event.addDomListener(window, "resize",function(){
     var center = map.getCenter();
     window.google.maps.event.trigger(map,"resize");
     self.state.map.setCenter(center);
@@ -121,7 +121,7 @@ initMap() {
   });
 
   var allplaces = [];
-  this.state.allocations.forEach(function(place){
+  this.state.allplaces.forEach(function(place){
     var longname = place.name + ' - ' + place.type;
     var marker = new window.google.maps.Marker({
       position: new window.google.maps.LatLng(place.latitude, place.longitude),
@@ -211,9 +211,9 @@ closeInfoWindow(){
 }
 
 render() {
-  return(
+  return (
     <div>
-    <placeList key="100" allplaces={this.state.allocations} openInfoWindow={this.openInfoWindow}
+    <placeList key="100" allplaces={this.state.allplaces} openInfoWindow={this.openInfoWindow}
           closeInfoWindow={this.closeInfoWindow}/>
           <div id= "map"></div>
       </div>
@@ -224,7 +224,7 @@ render() {
 export default App;
 ///loading google maps asynchronously
 
-function loadMapScript(src){
+function loadMapJS(src){
   var ref = window.document.getElementByTagName("script")[0];
   var script = window.document.createElement("script");
   script.src = src;

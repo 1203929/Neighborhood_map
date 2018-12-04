@@ -19,7 +19,7 @@ class placeList extends Component {
     var places = [];
     this.props.allplaces.forEach(function(place){
       if(place.longname.toLowerCase().indexof(value.toLowerCase())>=0){
-        place.longname.setVisible(true);
+        place.marker.setVisible(true);
         places.push(place);
       } else {
         place.marker.setVisible(false);
@@ -42,15 +42,15 @@ class placeList extends Component {
    });
  }
 //render function of placeList
-render(){
-  var placeList = this.state.places.map(function(listItem,index){
+render() {
+  var placeList = this.state.places.map(function(listItem,index) {
     return (
       <placeItem key={index} openInfoWindow={this.props.openInfoWindow.bind(this)} data={listItem}/>
-    )
+    );
   },this);
   return (
     <div className="search">
-      <input role="search" aria-labelledby="filter" id="search-field" className="search-field" type="text" placeholder="Filter Places"
+      <input role="search" aria-labelledby="filter" id="search-field" className="search-field" type="text" placeholder="Filter"
       value={this.state.query} onChange={this.filterPlaces}/>
       <ul>
       {this.state.suggestions && placeList}
@@ -59,7 +59,7 @@ render(){
       <button className="button" onClick={this.toggleSuggestions}>Show/Hide Suggestions</button>
       </div>
 
-  )
+  );
 }
 
 }
