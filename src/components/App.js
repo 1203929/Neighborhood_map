@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import placeList from './placeList';
+import PlaceList from './placeList';
 class App extends Component {
 
   constructor(props)  {
@@ -213,7 +213,7 @@ closeInfoWindow(){
 render() {
   return (
     <div>
-    <placeList key="100" allplaces={this.state.allplaces} openInfoWindow={this.openInfoWindow}
+    <PlaceList key="100" allplaces={this.state.allplaces} openInfoWindow={this.openInfoWindow}
           closeInfoWindow={this.closeInfoWindow}/>
           <div id= "map"></div>
       </div>

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import placeItem from './placeItem';
+import PlaceItem from './placeItem';
 
-class placeList extends Component {
+class PlaceList extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -43,9 +43,9 @@ class placeList extends Component {
  }
 //render function of placeList
 render() {
-  var placeList = this.state.places.map(function(listItem,index) {
+  var PlaceList = this.state.places.map(function(listItem,index) {
     return (
-      <placeItem key={index} openInfoWindow={this.props.openInfoWindow.bind(this)} data={listItem}/>
+      <PlaceItem key={index} openInfoWindow={this.props.openInfoWindow.bind(this)} data={listItem}/>
     );
   },this);
   return (
@@ -53,7 +53,7 @@ render() {
       <input role="search" aria-labelledby="filter" id="search-field" className="search-field" type="text" placeholder="Filter"
       value={this.state.query} onChange={this.filterPlaces}/>
       <ul>
-      {this.state.suggestions && placeList}
+      {this.state.suggestions && PlaceList}
       </ul>
 
       <button className="button" onClick={this.toggleSuggestions}>Show/Hide Suggestions</button>
@@ -63,4 +63,4 @@ render() {
 }
 
 }
-export default placeList;
+export default PlaceList;
